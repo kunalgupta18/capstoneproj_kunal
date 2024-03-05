@@ -1,0 +1,66 @@
+<h2>Purchases</h2>
+
+<div *ngIf="!isAdding && !isEditing">
+  <div class="mb-3">
+    <div class="row align-items-center">
+      <div class="col-sm">
+      <button class="btn btn-primary" (click)="isAdding = true">Add Purchase</button>
+    </div>
+  <div class="col-sm-auto text-right">
+    <button class="btn btn-sm btn-success" (click)="downloadTableAsExcel()">Download Table as Excel</button>
+  </div>
+
+</div>
+</div>
+  <table id="purchaseTable" class="table">
+    <thead>
+      <tr>
+        <th>Purchase ID</th>
+        <th>Purchase Date</th>
+        <th>Supplier ID</th>
+        <th>Quantity</th>
+        <th>Total Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let purchase of purchases">
+        <td>{{ purchase.purchaseId }}</td>
+        <td>{{ purchase.purchaseDate | date }}</td>
+        <td>{{ purchase.supplierId }}</td>
+        <td>{{ purchase.quantity }}</td>
+        <td>{{ purchase.totalAmount }}</td>
+        <td>
+          <button class="btn btn-sm btn-success " (click)="editPurchase(purchase)">Edit</button>
+          <button class="btn btn-sm btn-danger ml-2" (click)="deletePurchase(purchase.purchaseId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isAdding || isEditing">
+  <form [formGroup]="purchaseForm" (submit)="isEditing ? updatePurchase() : addPurchase()" class="mt-4">
+
+    <div class="form-group">
+      <label for="purchaseDate">Purchase Date:</label>
+      <input type="date" id="purchaseDate" formControlName="purchaseDate" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="supplierId">Supplier ID:</label>
+      <input type="number" id="supplierId" formControlName="supplierId" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" formControlName="quantity" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="totalAmount">Total Amount:</label>
+      <input type="number" id="totalAmount" formControlName="totalAmount" step="0.01" required class="form-control">
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-success">{{ isEditing ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="cancelEdit()" class="btn btn-danger">Cancel</button>
+    </div>
+  </form>
+</div>

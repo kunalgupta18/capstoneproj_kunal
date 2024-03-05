@@ -1,0 +1,69 @@
+<h2>Products</h2>
+
+<div class="d-flex justify-content-between mb-3">
+  <div>
+    <button class="btn btn-primary" (click)="onAddClick()">Add Product</button>
+  </div>
+  <div>
+    <input type="text" id="search" #searchInput (input)="applyFilter(searchInput.value)" placeholder="Search" class="form-control">
+  </div>
+  <div class="col-sm-auto text-right">
+    <button class="btn btn-sm btn-success" (click)="downloadTableAsExcel()">Download as Excel</button>
+  </div>
+</div>
+
+<div class="row" *ngIf="!isEditing && !isAdding">
+  <div class="col-md-4" *ngFor="let product of filteredProducts">
+    <div class="card mb-3">
+      <div id="productstable" class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="card-text">SKU: {{ product.sku }}</p>
+        <p class="card-text">Category: {{ product.category }}</p>
+        <p class="card-text">Manufacturer: {{ product.manufacturer }}</p>
+        <p class="card-text">Price: {{ product.price | currency }}</p>
+        <p class="card-text">Quantity: {{ product.quantity }}</p>
+        <button class="btn btn-sm btn-success" (click)="onEditClick(product)">Edit</button>
+        <button class="btn btn-sm btn-danger ml-2" (click)="deleteProduct(product.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAdding || isEditing" class="mt-4">
+  <form [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" id="description" formControlName="description" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="sku">SKU:</label>
+      <input type="text" id="sku" formControlName="sku" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <input type="text" id="category" formControlName="category" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer:</label>
+      <input type="text" id="manufacturer" formControlName="manufacturer" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" formControlName="price" step="0.01" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" formControlName="quantity" class="form-control">
+    </div>
+    <div class="text-center">
+      <button *ngIf="isAdding" type="submit" class="btn btn-success">Add</button>
+      <button *ngIf="isEditing" type="submit" class="btn btn-primary">Update</button>
+      <button type="button" (click)="onCancelClick()" class="btn btn-danger">Cancel</button>
+    </div>
+  </form>
+</div>

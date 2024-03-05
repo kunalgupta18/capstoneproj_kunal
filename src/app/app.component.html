@@ -1,0 +1,5 @@
+<!-- <app-navbar *ngIf="!isLoginPage && !isSignUpPage"></app-navbar> -->
+<app-navbar *ngIf="(commonService.loginStatus$ | async) "></app-navbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

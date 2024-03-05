@@ -1,0 +1,67 @@
+<h2>Sales</h2>
+
+<div *ngIf="!isAdding && !isEditing">
+  <div class="mb-3">
+    <div class="row align-items-center">
+      <div class="col-sm">
+        <button class="btn btn-primary" (click)="onAddClick()">Add Supplier</button>
+      </div>
+      <div class="col-sm-auto text-right">
+        <button class="btn btn-sm btn-success" (click)="downloadTableAsExcel()">Download Table as Excel</button>
+      </div>
+    </div>
+  </div>
+  <table id="salesTable" class="table">
+    <thead>
+      <tr>
+        <th>Sales ID</th>
+        <th>Sale Date</th>
+        <th>Total Amount</th>
+        <th>Payment Mode</th>
+        <th>Payment Details</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sale of sales">
+        <td>{{ sale.salesId }}</td>
+        <td>{{ sale.saleDate | date}}</td>
+        <td>{{ sale.totalAmount }}</td>
+        <td>{{ sale.paymentMode }}</td>
+        <td>{{ sale.paymentDetails }}</td>
+        <td>
+          <button class="btn btn-sm btn-success" (click)="onEditClick(sale)">Edit</button>
+          <button class="btn btn-sm btn-danger ml-2" (click)="deleteSale(sale.salesId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isAdding || isEditing">
+  <form [formGroup]="saleForm" (submit)="onFormSubmit()" class="mt-4">
+
+    <div class="form-group">
+      <label for="saleDate">Sale Date:</label>
+      <input type="date" id="saleDate" formControlName="saleDate" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="totalAmount">Total Amount:</label>
+      <input type="number" id="totalAmount" formControlName="totalAmount" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="paymentMode">Payment Mode:</label>
+      <input type="text" id="paymentMode" formControlName="paymentMode" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="paymentDetails">Payment Details:</label>
+      <input type="text" id="paymentDetails" formControlName="paymentDetails" class="form-control">
+    </div>
+
+    <div class="text-center">
+      <button *ngIf="isAdding" type="submit" class="btn btn-success">Add</button>
+      <button *ngIf="isEditing" type="submit" class="btn btn-primary">Update</button>
+      <button type="button" (click)="onCancelClick()" class="btn btn-danger">Cancel</button>
+    </div>
+  </form>
+</div>

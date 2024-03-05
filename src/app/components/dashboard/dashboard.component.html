@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Sales Quantity</h5>
+        <p class="card-text">{{ summary ? summary.totalSalesQuantity : 0 }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Purchases Quantity</h5>
+        <p class="card-text">
+          {{ summary ? summary.totalPurchasesQuantity : 0 }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Sales Amount</h5>
+        <p class="card-text">{{ summary ? summary.totalSalesAmount : 0 }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Purchase Amount</h5>
+        <p class="card-text">{{ summary ? summary.totalPurchaseAmount : 0 }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Quantity</h5>
+          <button class="btn btn-primary" (click)="showChart1()">Show Chart</button>
+          <button class="btn btn-danger ml-2" *ngIf="showChartFlag1" (click)="closeChart1()">Close Chart</button>
+          <canvas *ngIf="showChartFlag1" #chartCanvas1></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Amount</h5>
+          <button class="btn btn-primary" (click)="showChart2()">Show Chart</button>
+          <button class="btn btn-danger ml-2" *ngIf="showChartFlag2" (click)="closeChart2()">Close Chart</button>
+          <canvas *ngIf="showChartFlag2" #chartCanvas2></canvas>  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #dialog>
+  <div class="dialog-overlay">
+  <div class="dialog-content">
+    <span class="dialog-title">Low Stock !!!</span>
+    <button class="btn btn-danger" mat-dialog-close="">Close</button>
+  </div>
+</div>
+</ng-template>
