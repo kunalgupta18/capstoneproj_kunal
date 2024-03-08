@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/Services/common.service';
-
+import * as crypto from 'crypto-js'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,10 +34,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-  
+    const hash = crypto.SHA256(this.loginForm.value.password)
+    //console.log(hash.toString())
     const user = {
       username: this.loginForm.value.username,
-      password: this.loginForm.value.password,
+      password: hash.toString(),
     };
   
     this.http.post<any>('https://localhost:7094/api/Login', user).subscribe(
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
         
         if (this.rememberMe) {
           localStorage.setItem('username', user.username);
-          localStorage.setItem('password', user.password);
+          localStorage.setItem('password', this.loginForm.value.password);
         } else {
           localStorage.removeItem('username');
           localStorage.removeItem('password');
@@ -68,6 +69,7 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        window.alert('Invalid credentials. Please try again.')
       }
     );
   }

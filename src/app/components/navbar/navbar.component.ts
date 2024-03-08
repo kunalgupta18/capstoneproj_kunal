@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit{
     this.router.navigate(['/login'])
   }
   ngOnInit(): void {
-      this.username =   sessionStorage.getItem('name') as string
+      this.username = sessionStorage.getItem('name') as string
       this.role = sessionStorage.getItem('role') as string
   }
 }

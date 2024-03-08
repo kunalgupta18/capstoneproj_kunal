@@ -32,13 +32,12 @@
         <td>{{ purchase.totalAmount }}</td>
         <td>
           <button class="btn btn-sm btn-success " (click)="editPurchase(purchase)">Edit</button>
-          <button class="btn btn-sm btn-danger ml-2" (click)="deletePurchase(purchase.purchaseId)">Delete</button>
+          <button *ngIf="!(commonService.isStaff$ | async)" class="btn btn-sm btn-danger ml-2" (click)="deletePurchase(purchase.purchaseId)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-
 <div *ngIf="isAdding || isEditing">
   <form [formGroup]="purchaseForm" (submit)="isEditing ? updatePurchase() : addPurchase()" class="mt-4">
 

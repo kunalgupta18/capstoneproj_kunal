@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Purchase } from 'src/app/Models/PurchaseModel';
+import { CommonService } from 'src/app/Services/common.service';
 import { PurchaseService } from 'src/app/Services/purchase.service';
 import { WorkBook, utils } from 'xlsx';
 import * as xlsx from 'xlsx';
@@ -19,7 +20,7 @@ export class PurchaseComponent implements OnInit {
   isEditing: boolean = false;
   selectedPurchase: Purchase | undefined;
 
-  constructor(private fb: FormBuilder, private purchaseService: PurchaseService) {
+  constructor(private fb: FormBuilder, private purchaseService: PurchaseService, public commonService: CommonService) {
     this.purchaseForm = this.fb.group({
       purchaseDate: [''],
       supplierId: [''],

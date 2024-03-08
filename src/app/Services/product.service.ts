@@ -8,8 +8,7 @@ import { Product } from '../Models/ProductModel';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://localhost:7094/api/Product'; // Replace with your backend API URL
-
+  private apiUrl = 'https://localhost:7094/api/Product'; 
   constructor(private http: HttpClient) { }
 
   getAllProducts(): Observable<Product[]> {

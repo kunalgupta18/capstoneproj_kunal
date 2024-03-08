@@ -7,7 +7,7 @@ import { Purchase } from '../Models/PurchaseModel';
   providedIn: 'root'
 })
 export class PurchaseService {
-  private apiUrl = 'https://localhost:7094/api/Purchase'; // Replace with your actual API endpoint
+  private apiUrl = 'https://localhost:7094/api/Purchase'; 
 
   constructor(private http: HttpClient) {}
 

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './components/pages/products/products.component';
@@ -17,6 +16,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsersComponent } from './components/pages/users/users.component';
 import { MatDialogModule } from '@angular/material/dialog'
 //import { NgxBarcodeScannerModule } from 'ngx-barcode-scanner';
+
 
 const routes: Routes = [
   { path: 'products', component: ProductsComponent },
@@ -43,7 +43,8 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    MatDialogModule
+    MatDialogModule,
+    //QRCodeModule
     //NgxBarcodeScannerModule
   ],
   providers: [],

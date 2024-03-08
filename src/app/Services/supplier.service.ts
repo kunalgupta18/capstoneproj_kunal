@@ -7,8 +7,7 @@ import { Supplier } from '../Models/SupplierModel';
   providedIn: 'root'
 })
 export class SupplierService {
-  private apiUrl = 'https://localhost:7094/api/Supplier'; // Replace with your API endpoint
-
+  private apiUrl = 'https://localhost:7094/api/Supplier'; 
   constructor(private http: HttpClient) { }
 
   getSuppliers(): Observable<Supplier[]> {

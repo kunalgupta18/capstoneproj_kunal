@@ -24,7 +24,8 @@
         <p class="card-text">Price: {{ product.price | currency }}</p>
         <p class="card-text">Quantity: {{ product.quantity }}</p>
         <button class="btn btn-sm btn-success" (click)="onEditClick(product)">Edit</button>
-        <button class="btn btn-sm btn-danger ml-2" (click)="deleteProduct(product.id)">Delete</button>
+        <button *ngIf="!(commonService.isStaff$ | async)" class="btn btn-sm btn-danger ml-2" (click)="deleteProduct(product.id)">Delete</button>
+
       </div>
     </div>
   </div>

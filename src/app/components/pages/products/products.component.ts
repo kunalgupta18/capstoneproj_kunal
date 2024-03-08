@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/Models/ProductModel';
 import { ProductService } from 'src/app/Services/product.service';
 import { WorkBook, utils } from 'xlsx';
 import * as xlsx from 'xlsx';
 import { saveAs } from 'file-saver';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { CommonService } from 'src/app/Services/common.service';
 
 @Component({
   selector: 'app-products',
@@ -12,6 +14,12 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
+
+  public message !: string;
+  public progress !: number;
+  @Output() public onUploadFinished = new EventEmitter();
+
+
   products: Product[] = [];
   filteredProducts: Product[] = [];
   isAdding: boolean = false;
@@ -21,7 +29,9 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private http: HttpClient, 
+    public commonService: CommonService
   ) {}
 
   ngOnInit() {
@@ -109,6 +119,7 @@ export class ProductsComponent implements OnInit {
     this.productService.addProduct(product).subscribe(
       (data: Product) => {
         this.products.push(data);
+        this.loadProducts()
         this.clearForm();
         this.isAdding = false;
       },
@@ -127,6 +138,7 @@ export class ProductsComponent implements OnInit {
         }
         this.clearForm();
         this.isEditing = false;
+        this.loadProducts()
       },
       (error) => {
         console.log('An error occurred while updating the product:', error);
@@ -158,4 +170,6 @@ export class ProductsComponent implements OnInit {
     xlsx.writeFile(wb, `products_data.xlsx`);
 
   }
+
+
 }
